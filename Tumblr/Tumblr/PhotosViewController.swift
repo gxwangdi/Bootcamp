@@ -63,16 +63,60 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func initUI() {
-        
         refreshControl = UIRefreshControl();
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to update");
         refreshControl.addTarget(self, action: #selector(PhotosViewController.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged);
         photoTableView.insertSubview(refreshControl, at: 0);
     }
     
+    func getDateString() -> NSAttributedString {
+        let now = Date();
+        let updateString = "Last Update At " + String(describing: now);
+        return NSAttributedString(string: updateString);
+    }
+    
     func handleRefresh(refreshControl: UIRefreshControl) {
         refreshControl.beginRefreshing();
-        initData();
-        refreshControl.endRefreshing();
+        
+        self.refreshControl.attributedTitle = getDateString();
+        
+        let urlStr = "\(GlobalConstants.API_url)\(endpoint!)?api_key=\(GlobalConstants.API_KEY)";
+        print(urlStr)
+        let url = URL(string:urlStr);
+        var request = URLRequest(url: url!)
+        request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData;
+        
+        let session = URLSession(
+            configuration: URLSessionConfiguration.default,
+            delegate:nil,
+            delegateQueue:OperationQueue.main
+        )
+        let task : URLSessionDataTask = session.dataTask(
+            with: request as URLRequest,
+            completionHandler: { (data, response, error) in
+                
+                if error != nil {
+                    self.showToast(message: "Network Error.");
+                    print("Network error.");
+                    return;
+                }
+                
+                if let data = data {
+                    if let responseDictionary = try! JSONSerialization.jsonObject(
+                        with: data, options:[]) as? NSDictionary {
+                        //                        print("responseDictionary: \(responseDictionary)")
+                        
+                        self.movies = responseDictionary["results"] as? [NSDictionary];
+                        
+                        self.photoTableView.reloadData();
+                        
+                    }
+                }
+                if (self.refreshControl.isRefreshing) {
+                    refreshControl.endRefreshing();
+                }
+        });
+        task.resume();
     }
 
     func initData() {
@@ -114,7 +158,6 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     func showToast(message : String) {
-        
         let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 150, height: 35))
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         toastLabel.textColor = UIColor.white
