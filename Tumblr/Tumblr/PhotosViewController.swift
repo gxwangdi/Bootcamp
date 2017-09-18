@@ -14,6 +14,8 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     // IBOutlets
     @IBOutlet weak var photoTableView: UITableView!
     
+    let attributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont.systemFont(ofSize: 12)]
+    
     // Vars
     var movies: [NSDictionary]?;
     var endpoint: String!
@@ -107,7 +109,9 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     
     func initUI() {
         refreshControl = UIRefreshControl();
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to update");
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to update" ,attributes: attributes);
+//        refreshControl.attributedTitle = NSAttributedString(string: "Pull to update");
         refreshControl.addTarget(self, action: #selector(PhotosViewController.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged);
         photoTableView.insertSubview(refreshControl, at: 0);
     }
@@ -115,7 +119,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     func getDateString() -> NSAttributedString {
         let now = Date();
         let updateString = "Last Update At " + String(describing: now);
-        return NSAttributedString(string: updateString);
+        return NSAttributedString(string: updateString, attributes: attributes);
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
