@@ -24,6 +24,15 @@ class PhotoTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        if selected {
+            titleLabel.textColor = UIColor.yellow;
+            synopsisLabel.textColor = UIColor.yellow;
+            self.backgroundColor = UIColor.blue;
+        } else {
+            titleLabel.textColor = UIColor.white;
+            synopsisLabel.textColor = UIColor.white;
+            self.backgroundColor = UIColor.black;
+        }
     }
 
 }
