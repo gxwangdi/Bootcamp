@@ -51,6 +51,34 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         return cell
     }// end of tableView->UITableViewCell    
     
+    func fetchImageFor(ImageView:UIImageView, atPath:String) {
+        let lowUrl = URL(string: GlobalConstants.IMAGE_HIGH_RESOLUTION_URL + atPath);
+        //        let Request = URLRequest(url: lowUrl!);
+        let session = URLSession(
+            configuration: URLSessionConfiguration.default,
+            delegate:nil,
+            delegateQueue:OperationQueue.main
+        )
+        let task = session.dataTask(with: lowUrl!) { (data, response, error) in
+            print("fetchImageTask.completionHandler.");
+            // No need to get large pic for main menu.
+//            let posterURL = URL(string: GlobalConstants.IMAGE_HIGH_RESOLUTION_URL + atPath);
+//            ImageView.setImageWith(posterURL!);
+            
+            if let e = error {
+                self.showToast(message: "Network Error.")
+                print("Error downloading cat picture: \(e)")
+                return;
+            }
+            if let imageData = data {
+                //TODO(gxwangdi):Add fade-in animation here.
+                ImageView.image = UIImage(data: imageData)
+            }
+        }
+        task.resume();
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
