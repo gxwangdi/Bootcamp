@@ -28,7 +28,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="119"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xFq-dv-AcZ" id="yCr-hj-vjh">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="118.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="119"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jiy-eV-QUF">
@@ -115,7 +115,14 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="hUW-eP-Tr7"/>
+                    <navigationItem key="navigationItem" id="hUW-eP-Tr7">
+                        <barButtonItem key="leftBarButtonItem" systemItem="organize" id="Wvp-MB-IJg">
+                            <color key="tintColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="OnBackPressed:" destination="7FK-ku-jj8" id="1Bg-S3-0ky"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="infoView" destination="BPs-wp-uYz" id="rOV-uc-Xxh"/>
                         <outlet property="overviewLable" destination="aUN-fM-xqJ" id="QFt-dW-9SY"/>

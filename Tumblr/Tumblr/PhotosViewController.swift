@@ -39,7 +39,8 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
             let synopsis = movie["overview"] as? String;
             
             if let posterPath = movie["poster_path"] as? String {
-                let posterURL = URL(string: GlobalConstants.Image_Base_Url + posterPath);
+//                let posterURL = URL(string: GlobalConstants.Image_Base_Url + posterPath);
+                let posterURL = URL(string: GlobalConstants.IMAGE_LOW_RESOLUTION_URL + posterPath);
                 cell.posterView.setImageWith(posterURL!);
             }
             
@@ -57,9 +58,23 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         photoTableView.delegate = self
         photoTableView.dataSource = self
         
+        initNavBar();
         initUI();
         
         initData()
+    }
+    
+    func initNavBar() {
+        if let navBar = self.navigationController?.navigationBar {
+            navBar.barStyle = UIBarStyle.blackTranslucent;
+            navBar.tintColor = UIColor.white;
+            navBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.yellow]
+        }
+    }
+    
+    override func viewWillAppear(_ animated:Bool) {
+        super.viewWillAppear(animated)
+//        initNavBar();
     }
     
     func initUI() {
@@ -84,6 +99,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         print(urlStr)
         let url = URL(string:urlStr);
         var request = URLRequest(url: url!)
+        // For debugging network error only.
         request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData;
         
         let session = URLSession(
@@ -145,7 +161,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                 if let data = data {
                     if let responseDictionary = try! JSONSerialization.jsonObject(
                         with: data, options:[]) as? NSDictionary {
-//                        print("responseDictionary: \(responseDictionary)")
+//                      print("responseDictionary: \(responseDictionary)")
                         
                         self.movies = responseDictionary["results"] as? [NSDictionary];
                         
@@ -168,7 +184,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         toastLabel.layer.cornerRadius = 10;
         toastLabel.clipsToBounds  =  true
         self.view.addSubview(toastLabel)
-        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 6.0, delay: 0.1, options: .curveEaseOut, animations: {
             toastLabel.alpha = 0.0
         }, completion: {(isCompleted) in
             toastLabel.removeFromSuperview()
