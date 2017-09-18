@@ -17,7 +17,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     // Vars
     var movies: [NSDictionary]?;
     var endpoint: String!
-    
+    var refreshControl: UIRefreshControl!;
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let movies = self.movies
@@ -30,7 +30,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("tableView cells:\(indexPath.row)");
+//        print("tableView cells:\(indexPath.row)");
         let cell = tableView.dequeueReusableCell(withIdentifier: "PhotoCell") as! PhotoTableViewCell
         
         // Configure YourCustomCell using the outlets that you've defined.
@@ -39,14 +39,13 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
             let synopsis = movie["overview"] as? String;
             
             if let posterPath = movie["poster_path"] as? String {
-//                let posterURL = URL(string: GlobalConstants.API_url + posterPath + "?api_key=" + GlobalConstants.API_KEY);
                 let posterURL = URL(string: GlobalConstants.Image_Base_Url + posterPath);
                 cell.posterView.setImageWith(posterURL!);
             }
             
             cell.titleLabel.text = title;
             cell.synopsisLabel.text = synopsis;
-            print(movie)
+//            print(movie)
         }
         return cell
     }// end of tableView->UITableViewCell    
@@ -58,10 +57,24 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         photoTableView.delegate = self
         photoTableView.dataSource = self
         
-        initPosts()
+        initUI();
+        
+        initData()
+    }
+    
+    func initUI() {
+        refreshControl = UIRefreshControl();
+        refreshControl.addTarget(self, action: #selector(PhotosViewController.handleRefresh(refreshControl:)), for: UIControlEvents.valueChanged);
+        photoTableView.insertSubview(refreshControl, at: 0);
+    }
+    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        refreshControl.beginRefreshing();
+        initData();
+        refreshControl.endRefreshing();
     }
 
-    func initPosts() {
+    func initData() {
         let urlStr = "\(GlobalConstants.API_url)\(endpoint!)?api_key=\(GlobalConstants.API_KEY)";
         print(urlStr)
         let url = URL(string:urlStr);
