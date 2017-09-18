@@ -16,6 +16,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     
     // Vars
     var movies: [NSDictionary]?;
+    var endpoint: String!
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,7 +62,9 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
     func initPosts() {
-        let url = URL(string:"\(GlobalConstants.API_url)\(GlobalConstants.API_nowplaying)?api_key=\(GlobalConstants.API_KEY)");
+        let urlStr = "\(GlobalConstants.API_url)\(endpoint!)?api_key=\(GlobalConstants.API_KEY)";
+        print(urlStr)
+        let url = URL(string:urlStr);
         let request = URLRequest(url: url!)
         let session = URLSession(
             configuration: URLSessionConfiguration.default,
@@ -72,18 +75,17 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         let task : URLSessionDataTask = session.dataTask(
             with: request as URLRequest,
             completionHandler: { (data, response, error) in
+                
+                if error != nil {
+                    print("Network error.");
+                    return;
+                }
+                
                 if let data = data {
                     if let responseDictionary = try! JSONSerialization.jsonObject(
                         with: data, options:[]) as? NSDictionary {
-                        print("responseDictionary: \(responseDictionary)")
+//                        print("responseDictionary: \(responseDictionary)")
                         
-                        // Recall there are two fields in the response dictionary, 'meta' and 'response'.
-                        // This is how we get the 'response' field
-//                        let responseFieldDictionary = responseDictionary["response"] as!  NSDictionary;
-                        
-                        // This is where you will store the returned array of posts in your posts property
-                        // self.feeds = responseFieldDictionary["posts"] as! [NSDictionary]
-//                        self.movies = responseFieldDictionary["posts"] as? [NSDictionary];
                         self.movies = responseDictionary["results"] as? [NSDictionary];
                         
                         self.photoTableView.reloadData();
