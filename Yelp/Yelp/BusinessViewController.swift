@@ -24,6 +24,9 @@ class BusinessViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
         
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 120;
+        
         // Do any additional setup after loading the view.
         initData();
         initUI();
