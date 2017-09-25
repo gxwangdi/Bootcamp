@@ -192,6 +192,41 @@
                                             <outlet property="switchLabel" destination="VpH-UD-zX9" id="iBo-kk-iCa"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CascadingCell" id="8aK-oZ-usV" customClass="CascadingCell" customModule="Yelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="120" width="375" height="92"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8aK-oZ-usV" id="j7I-2i-Qxy">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="92"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Best Matches" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1h-tL-HJj">
+                                                    <rect key="frame" x="19" y="36" width="213" height="20.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="213" id="Bhu-8c-9Sl"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ObG-vB-axQ">
+                                                    <rect key="frame" x="310" y="31" width="46" height="30"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <connections>
+                                                        <action selector="onDropDownClicked:" destination="8aK-oZ-usV" eventType="touchUpInside" id="FMd-K0-5QE"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="F1h-tL-HJj" firstAttribute="centerY" secondItem="j7I-2i-Qxy" secondAttribute="centerY" id="7pa-h1-X6v"/>
+                                                <constraint firstItem="F1h-tL-HJj" firstAttribute="leading" secondItem="j7I-2i-Qxy" secondAttribute="leadingMargin" constant="11" id="X1T-Kq-ped"/>
+                                                <constraint firstItem="ObG-vB-axQ" firstAttribute="centerY" secondItem="j7I-2i-Qxy" secondAttribute="centerY" id="kMk-Z7-VgP"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ObG-vB-axQ" secondAttribute="trailing" constant="11" id="yl5-Gu-tDz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="cascadingLabel" destination="F1h-tL-HJj" id="tC5-Ql-orX"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
@@ -221,7 +256,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6zj-nD-7xz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2631" y="37"/>
+            <point key="canvasLocation" x="2629.5999999999999" y="36.431784107946029"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zCq-DX-5rI">
