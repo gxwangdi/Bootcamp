@@ -1,0 +1,185 @@
+
+安装 Docker 并练习以下基础命令、帮助命令、镜像命令和容器命令:
+
+帮助命令
+docker 命令 --help
+镜像命令
+docker images 列出所有镜像
+docker search 搜索镜像
+docker pull 下载镜像
+docker rmi 删除镜像
+
+
+(base) gxwangdi@MacBook-Pro-3 W02 % which docker
+/opt/homebrew/bin/docker
+(base) gxwangdi@MacBook-Pro-3 W02 % docker --help
+
+Usage:  docker [OPTIONS] COMMAND
+
+A self-sufficient runtime for containers
+
+Common Commands:
+  run         Create and run a new container from an image
+  exec        Execute a command in a running container
+  ps          List containers
+  build       Build an image from a Dockerfile
+  pull        Download an image from a registry
+  push        Upload an image to a registry
+  images      List images
+  login       Log in to a registry
+  logout      Log out from a registry
+  search      Search Docker Hub for images
+  version     Show the Docker version information
+  info        Display system-wide information
+
+Management Commands:
+  builder     Manage builds
+  checkpoint  Manage checkpoints
+  container   Manage containers
+  context     Manage contexts
+  image       Manage images
+  manifest    Manage Docker image manifests and manifest lists
+  network     Manage networks
+  plugin      Manage plugins
+  system      Manage Docker
+  trust       Manage trust on Docker images
+  volume      Manage volumes
+
+Swarm Commands:
+  config      Manage Swarm configs
+  node        Manage Swarm nodes
+  secret      Manage Swarm secrets
+  service     Manage Swarm services
+  stack       Manage Swarm stacks
+  swarm       Manage Swarm
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  import      Import the contents from a tarball to create a filesystem image
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  wait        Block until one or more containers stop, then print their exit codes
+
+Global Options:
+      --config string      Location of client config files (default "/Users/gxwangdi/.docker")
+  -c, --context string     Name of the context to use to connect to the daemon (overrides DOCKER_HOST env var and
+                           default context set with "docker context use")
+  -D, --debug              Enable debug mode
+  -H, --host list          Daemon socket to connect to
+  -l, --log-level string   Set the logging level ("debug", "info", "warn", "error", "fatal") (default "info")
+      --tls                Use TLS; implied by --tlsverify
+      --tlscacert string   Trust certs signed only by this CA (default "/Users/gxwangdi/.docker/ca.pem")
+      --tlscert string     Path to TLS certificate file (default "/Users/gxwangdi/.docker/cert.pem")
+      --tlskey string      Path to TLS key file (default "/Users/gxwangdi/.docker/key.pem")
+      --tlsverify          Use TLS and verify the remote
+  -v, --version            Print version information and quit
+
+Run 'docker COMMAND --help' for more information on a command.
+
+For more help on how to use Docker, head to https://docs.docker.com/go/guides/
+(base) gxwangdi@MacBook-Pro-3 W02 % docker images
+Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+(base) gxwangdi@MacBook-Pro-3 W02 % which colima
+/opt/homebrew/bin/colima
+(base) gxwangdi@MacBook-Pro-3 W02 % colima start
+INFO[0000] starting colima                              
+INFO[0000] runtime: docker                              
+INFO[0000] preparing network ...                         context=vm
+INFO[0000] creating and starting ...                     context=vm
+INFO[0030] provisioning ...                              context=docker
+INFO[0030] starting ...                                  context=docker
+INFO[0035] done                                         
+(base) gxwangdi@MacBook-Pro-3 W02 % docker images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+(base) gxwangdi@MacBook-Pro-3 W02 % docker pull
+"docker pull" requires exactly 1 argument.
+See 'docker pull --help'.
+
+Usage:  docker pull [OPTIONS] NAME[:TAG|@DIGEST]
+
+Download an image from a registry
+(base) gxwangdi@MacBook-Pro-3 W02 % docker pull busybox
+Using default tag: latest
+latest: Pulling from library/busybox
+8a0af25e8c2e: Pull complete 
+Digest: sha256:3fbc632167424a6d997e74f52b878d7cc478225cffac6bc977eedfe51c7f4e79
+Status: Downloaded newer image for busybox:latest
+docker.io/library/busybox:latest
+(base) gxwangdi@MacBook-Pro-3 W02 % docker images
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+busybox      latest    fc9db2894f4e   4 weeks ago   4.04MB
+(base) gxwangdi@MacBook-Pro-3 W02 % docker search busybox
+NAME                                DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+busybox                             Busybox base image.                             3065      [OK]       
+rancher/busybox                                                                     0                    
+openebs/busybox-client                                                              0                    
+antrea/busybox                                                                      0                    
+hugegraph/busybox                   test image                                      0                    
+privatebin/chown                     Docker image providing busybox' chown, stat…   0                    
+yauritux/busybox-curl               Busybox with CURL                               23                   
+radial/busyboxplus                  Full-chain, Internet enabled, busybox made f…   54                   [OK]
+vukomir/busybox                     busybox and curl                                1                    
+arm64v8/busybox                     Busybox base image.                             4                    
+odise/busybox-curl                                                                  4                    [OK]
+amd64/busybox                       Busybox base image.                             1                    
+busybox42/zimbra-docker-centos      A Zimbra Docker image, based in ZCS 8.8.9 an…   2                    [OK]
+joeshaw/busybox-nonroot             Busybox container with non-root user nobody     2                    
+p7ppc64/busybox                     Busybox base image for ppc64.                   2                    
+ppc64le/busybox                     Busybox base image.                             1                    
+busybox42/alpine-pod                                                                0                    
+s390x/busybox                       Busybox base image.                             3                    
+arm32v7/busybox                     Busybox base image.                             10                   
+i386/busybox                        Busybox base image.                             3                    
+prom/busybox                        Prometheus Busybox Docker base images           2                    [OK]
+spotify/busybox                     Spotify fork of https://hub.docker.com/_/bus…   1                    
+busybox42/nginx_php-docker-centos   This is a nginx/php-fpm server running on Ce…   1                    [OK]
+arm32v5/busybox                     Busybox base image.                             0                    
+concourse/busyboxplus                                                               0                    
+(base) gxwangdi@MacBook-Pro-3 W02 % docker ps            
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) gxwangdi@MacBook-Pro-3 W02 % docker run busybox echo "Hello World!"
+dquote> 
+dquote> 
+(base) gxwangdi@MacBook-Pro-3 W02 % docker run busybox
+(base) gxwangdi@MacBook-Pro-3 W02 % docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) gxwangdi@MacBook-Pro-3 W02 % docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED          STATUS                      PORTS     NAMES
+cfe2fe94cb3e   busybox   "sh"      20 seconds ago   Exited (0) 19 seconds ago             xenodochial_yonath
+(base) gxwangdi@MacBook-Pro-3 W02 % docker rmi busybox
+Error response from daemon: conflict: unable to remove repository reference "busybox" (must force) - container cfe2fe94cb3e is using its referenced image fc9db2894f4e
+(base) gxwangdi@MacBook-Pro-3 W02 % docker images
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+busybox      latest    fc9db2894f4e   4 weeks ago   4.04MB
+(base) gxwangdi@MacBook-Pro-3 W02 % docker rmi fc9db2894f4e
+Error response from daemon: conflict: unable to delete fc9db2894f4e (must be forced) - image is being used by stopped container cfe2fe94cb3e
+(base) gxwangdi@MacBook-Pro-3 W02 % docker rmi -f fc9db2894f4e
+Untagged: busybox:latest
+Untagged: busybox@sha256:3fbc632167424a6d997e74f52b878d7cc478225cffac6bc977eedfe51c7f4e79
+Deleted: sha256:fc9db2894f4e4b8c296b8c9dab7e18a6e78de700d21bc0cfaf5c78484226db9c
+(base) gxwangdi@MacBook-Pro-3 W02 % docker images             
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+(base) gxwangdi@MacBook-Pro-3 W02 % 
