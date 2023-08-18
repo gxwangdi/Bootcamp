@@ -1,0 +1,16 @@
+
+
+Java 是编译型语言。    错   java更接近解释型语言
+
+Javascript 中，不区分大小写字母，也就是说 A 和 a 是同一个变量。    错   javascript区分大小写字母
+
+Javascript 中的常量包括 String、Number、Boolean、Null、Undefined。     错   String Number Boolean都是类型定义
+
+String 字符串的语法中既可以使用单引号，也可以使用双引号。    对
+
+typeof 是用来判断变量类型，不可以当作运算符使用。    错   typeof是一元运算符 
+
+任何值和 undefined 运算，undefined 可看做 0 运算。      错     undefined与不同类型进行运算 规则都不一样
+
+ 
+
