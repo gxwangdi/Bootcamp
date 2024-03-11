@@ -7,12 +7,12 @@
 6. C 
 7. B 
 8. D 
-9. B 
-10.D 
-11.A D 
-12.A B
-13.A B  X A D
-14.A B D
-15.A D
+9. B \
+10.D \
+11.A D \
+12.A B \
+13.A B  X A D \
+14.A B D \
+15.A D 
 
 
